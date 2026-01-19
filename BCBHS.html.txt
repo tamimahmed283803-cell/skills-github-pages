@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Send Money to Me</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --btn: #16a34a;
+      --btn-hover: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 10%, #0b1220 0%, var(--bg) 60%);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .container {
+      width: 100%;
+      max-width: 720px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.4px;
+    }
+    h1 {
+      margin: 6px 0 12px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    p.lead {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .number {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+    .copy-btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px dashed rgba(255,255,255,0.25);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+    }
+    .copy-btn:hover { border-color: rgba(255,255,255,0.45); }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--btn);
+      color: #fff;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      transition: background 0.2s ease, transform 0.05s ease;
+    }
+    .btn:hover { background: var(--btn-hover); }
+    .btn:active { transform: translateY(1px); }
+    .brand {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .brand .pill {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .disclaimer {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .modal h2 { margin: 0 0 8px; font-size: 22px; }
+    .modal p { margin: 0 0 14px; color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .method {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .method h3 { margin: 0 0 6px; font-size: 16px; }
+    .close {
+      margin-top: 12px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    @media (min-width: 560px) {
+      .grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <div class="logo">💸 Payment Page</div>
+    <h1>Send Money to Me</h1>
+    <p class="lead">নিচের বোতামে ক্লিক করলে bKash, Nagad, Rocket‑এ পাঠানোর নির্দেশনা দেখাবে।</p>
+
+    <section class="card" aria-label="Primary actions">
+      <div class="row">
+        <div class="number" id="payNumber">01773183779</div>
+        <button class="copy-btn" id="copyBtn" aria-label="Copy number">Copy</button>
+      </div>
+
+      <div class="brand" aria-label="Supported methods">
+        <div class="pill">bKash</div>
+        <div class="pill">Nagad</div>
+        <div class="pill">Rocket</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="sendNow">Send Now</button>
+      </div>
+
+      <p class="disclaimer">
+        টিপস: পাঠানোর আগে নম্বরটি যাচাই করে নাও। ট্রান্সফার কনফার্মেশন স্ক্রিনে নাম মিলছে কি না দেখো।
+      </p>
+
+      <div class="footer">
+        <span>© 2026 Tamim</span>
+        <span>Rajshahi, Bangladesh</span>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle">Send money instructions</h2>
+      <p>তোমার পছন্দের অ্যাপ খুলে “Send Money”/“Cash Out” নয়—“Send Money” অপশন বেছে নাও, তারপর নম্বরটি দাও: <strong>01773183779</strong>.</p>
+
+      <div class="grid">
+        <div class="method">
+          <h3>bKash</h3>
+          <p>Send Money → Number: <strong>01773183779</strong> → Amount → Reference (ইচ্ছেমতো) → Confirm.</p>
+        </div>
+        <div class="method">
+          <h3>Nagad</h3>
+          <p>Send Money → Mobile No: <strong>01773183779</strong> → Amount → Note (ঐচ্ছিক) → Confirm.</p>
+        </div>
+        <div class="method">
+          <h3>Rocket</h3>
+          <p>Fund Transfer → To Rocket/bKash/Nagad → Number: <strong>01773183779</strong> → Amount → Confirm.</p>
+        </div>
+      </div>
+
+      <button class="close" id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const numberEl = document.getElementById("payNumber");
+    const copyBtn = document.getElementById("copyBtn");
+    const sendNow = document.getElementById("sendNow");
+    const backdrop = document.getElementById("modalBackdrop");
+    const closeModal = document.getElementById("closeModal");
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(numberEl.textContent.trim());
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+      } catch {
+        alert("Copy করতে সমস্যা হয়েছে। নম্বরটি ম্যানুয়ালি কপি করুন: 01773183779");
+      }
+    });
+
+    sendNow.addEventListener("click", () => {
+      backdrop.style.display = "flex";
+      backdrop.setAttribute("aria-hidden", "false");
+    });
+
+    closeModal.addEventListener("click", () => {
+      backdrop.style.display = "none";
+      backdrop.setAttribute("aria-hidden", "true");
+    });
+
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) {
+        backdrop.style.display = "none";
+        backdrop.setAttribute("aria-hidden", "true");
+      }
+    });
+  </script>
+</body>
+</html>
+
